@@ -5,22 +5,18 @@ function Login({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("http://localhost:5000/login", {
-        email,
-        password
-      });
+  const handleLogin = () => {
+  if (!email || !password) {
+    alert("Enter email and password");
+    return;
+  }
 
-      alert(res.data.message);
+  // save user locally
+  localStorage.setItem("username", email);
 
-      if (res.data.message === "Login successful") {
-
-        // 🔥 STORE EMAIL IN LOCALSTORAGE
-        localStorage.setItem("username", email);
-
-        setPage("home");
-      }
+  alert("Login successful");
+  setPage("home");
+};
 
     } catch (err) {
       alert("Login failed");
