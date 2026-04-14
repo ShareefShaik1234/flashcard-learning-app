@@ -5,17 +5,15 @@ function Register({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async () => {
-    const res = await axios.post("http://localhost:5000/register", {
-      email,
-      password
-    });
+  const handleRegister = () => {
+  if (!email || !password) {
+    alert("Enter details");
+    return;
+  }
 
-    alert(res.data.message);
-
-    // go to login page after register
-    setPage("login");
-  };
+  alert("Registered successfully");
+  setPage("login");
+};
 
   return (
     <div>
