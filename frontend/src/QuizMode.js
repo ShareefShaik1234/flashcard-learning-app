@@ -72,7 +72,7 @@ function QuizMode() {
     }
 
     try {
-      await axios.post("http://localhost:5000/score", {
+      await axios.post("api/score", {
         name: name,
         score: score
       });
