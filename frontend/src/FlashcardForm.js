@@ -11,7 +11,7 @@ function FlashcardForm({ refresh }) {
       return;
     }
 
-    await axios.post("http://localhost:5000/flashcards", {
+    await axios.post("api/flashcards", {
       question,
       answer
     });
