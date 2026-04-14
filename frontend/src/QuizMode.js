@@ -13,7 +13,7 @@ function QuizMode() {
 
   // ================= FETCH FLASHCARDS =================
   useEffect(() => {
-    axios.get("http://localhost:5000/flashcards")
+    axios.get("api/flashcards")
       .then(res =>
         // 🔥 Shuffle questions
         setCards(res.data.sort(() => Math.random() - 0.5))
