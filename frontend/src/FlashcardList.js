@@ -13,7 +13,7 @@ function FlashcardList({ cards, setCards }) {
       const confirmDelete = window.confirm("Delete this flashcard?");
       if (!confirmDelete) return;
 
-      await axios.delete(`http://localhost:5000/flashcards/${id}`);
+      await axios.delete(`api/flashcards/${id}`);
 
       setCards(prev => prev.filter(card => card._id !== id));
 
