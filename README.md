@@ -6,7 +6,7 @@ A full-stack web application built using the MERN stack (MongoDB, Express.js, Re
 
 ## Overview
 
-This application allows users to create and manage flashcards, study them interactively, test their knowledge through quizzes, and track their performance using a leaderboard.
+This application allows users to create and manage the flashcards, study them interactively, test their knowledge through quizzes, and track their performance using a leaderboard.
 
 ---
 
