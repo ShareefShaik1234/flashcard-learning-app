@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartFlash - Student Dashboard</title>
+  <meta name="description" content="View your flashcard learning metrics, completion percentage, active streaks, and recent study actions.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <main>
+      <header class="mb-3">
+        <h1 class="gradient-text" style="font-size: 2.5rem; font-weight: 800;">Learning Dashboard</h1>
+        <p style="color: var(--text-muted);">Welcome back! Here is a summary of your flashcard learning achievements.</p>
+      </header>
+
+      <div class="dashboard-grid">
+        <!-- Left Section: KPIs and Stats -->
+        <div>
+          <!-- KPI Grid -->
+          <div class="kpi-container">
+            <!-- Total Cards -->
+            <div class="glass-card kpi-card">
+              <div class="kpi-icon" style="background: var(--color-primary-grad);">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+              </div>
+              <div class="kpi-info">
+                <h4>Total Flashcards</h4>
+                <p id="kpi-total">0</p>
+              </div>
+            </div>
+            <!-- Total Categories -->
+            <div class="glass-card kpi-card">
+              <div class="kpi-icon" style="background: var(--color-secondary-grad);">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+              </div>
+              <div class="kpi-info">
+                <h4>Categories</h4>
+                <p id="kpi-categories">0</p>
+              </div>
+            </div>
+            <!-- Learned Cards -->
+            <div class="glass-card kpi-card">
+              <div class="kpi-icon" style="background: var(--color-success-grad);">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              </div>
+              <div class="kpi-info">
+                <h4>Learned Cards</h4>
+                <p id="kpi-learned">0</p>
+              </div>
+            </div>
+            <!-- Difficult Cards -->
+            <div class="glass-card kpi-card">
+              <div class="kpi-icon" style="background: var(--color-warning-grad);">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <div class="kpi-info">
+                <h4>Difficult Cards</h4>
+                <p id="kpi-difficult">0</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Circular Progress widget and Recent Cards -->
+          <div class="glass-card mb-3 completion-widget">
+            <h3 style="font-weight: 700;">Overall Mastery</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Percentage of total flashcards marked as learned.</p>
+            
+            <div class="progress-ring-container">
+              <svg class="progress-ring" width="160" height="160">
+                <defs>
+                  <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#6366f1" />
+                    <stop offset="100%" stop-color="#a855f7" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  class="progress-ring__circle"
+                  stroke-width="12"
+                  fill="transparent"
+                  r="70"
+                  cx="80"
+                  cy="80"
+                />
+                <circle
+                  class="progress-ring__circle progress-ring__circle--bar"
+                  stroke-width="12"
+                  fill="transparent"
+                  r="70"
+                  cx="80"
+                  cy="80"
+                  stroke-dasharray="440"
+                  stroke-dashoffset="440"
+                />
+              </svg>
+              <div class="progress-percentage" id="mastery-percent">0%</div>
+            </div>
+            <p id="mastery-summary" style="font-weight: 500;">Add cards and start studying to build mastery!</p>
+          </div>
+        </div>
+
+        <!-- Right Section: Quick Actions and Activity -->
+        <div class="dashboard-actions">
+          <!-- Study Streak Widget -->
+          <div class="glass-card" style="padding: 20px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="font-size: 2.5rem;">🔥</div>
+              <div>
+                <h3 style="font-weight: 700;" id="streak-num">0 Days</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Active Study Streak</p>
+              </div>
+            </div>
+            <div id="last-session-meta" style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--glass-border); padding-top: 10px;">
+              No study sessions recorded yet.
+            </div>
+          </div>
+
+          <!-- Quick Actions Grid -->
+          <div class="glass-card">
+            <h3 class="mb-2" style="font-weight: 700;">Quick Actions</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <a href="flashcards.html?action=add" class="quick-action-btn">
+                <div class="quick-action-icon" style="background: var(--color-primary-grad);">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="quick-action-text">
+                  <h4>Create Flashcard</h4>
+                  <p>Add new concepts and definitions</p>
+                </div>
+              </a>
+
+              <a href="study.html" class="quick-action-btn">
+                <div class="quick-action-icon" style="background: var(--color-secondary-grad);">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </div>
+                <div class="quick-action-text">
+                  <h4>Study Session</h4>
+                  <p>Flip cards and review topics</p>
+                </div>
+              </a>
+
+              <a href="progress.html" class="quick-action-btn">
+                <div class="quick-action-icon" style="background: var(--color-success-grad);">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14H7v-7h3v7zm4 0h-3V7h3v10zm4 0h-3v-4h3v4z"/></svg>
+                </div>
+                <div class="quick-action-text">
+                  <h4>View Analytics</h4>
+                  <p>Check detailed statistics and resets</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Recent Activity Cards -->
+          <div class="glass-card">
+            <h3 class="mb-2" style="font-weight: 700;">Recently Added Cards</h3>
+            <div class="recent-activity-list" id="recent-cards-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small timeout to guarantee localStorage initialization inside app.js
+      setTimeout(populateDashboard, 150);
+    });
+
+    function populateDashboard() {
+      const cards = getCards();
+      const stats = getStats();
+
+      // Calculations
+      const totalCards = cards.length;
+      const categoriesSet = new Set(cards.map(c => c.category.trim()).filter(Boolean));
+      const totalCategories = categoriesSet.size;
+      const learnedCount = cards.filter(c => c.isLearned).length;
+      const difficultCount = cards.filter(c => c.isDifficult).length;
+      
+      const masteryPercent = totalCards > 0 ? Math.round((learnedCount / totalCards) * 100) : 0;
+
+      // 1. Set KPI text content
+      document.getElementById('kpi-total').textContent = totalCards;
+      document.getElementById('kpi-categories').textContent = totalCategories;
+      document.getElementById('kpi-learned').textContent = learnedCount;
+      document.getElementById('kpi-difficult').textContent = difficultCount;
+
+      // 2. Set mastery progress ring
+      const circle = document.querySelector('.progress-ring__circle--bar');
+      const masteryText = document.getElementById('mastery-percent');
+      const masterySummary = document.getElementById('mastery-summary');
+      
+      const radius = circle.r.baseVal.value;
+      const circumference = 2 * Math.PI * radius; // ~439.82
+      
+      // Calculate offset based on percent
+      const offset = circumference - (masteryPercent / 100) * circumference;
+      circle.style.strokeDasharray = `${circumference} ${circumference}`;
+      circle.style.strokeDashoffset = offset;
+      masteryText.textContent = `${masteryPercent}%`;
+
+      // Set mastery description
+      if (totalCards === 0) {
+        masterySummary.textContent = "Your deck is empty. Create a flashcard to get started!";
+      } else if (masteryPercent === 100) {
+        masterySummary.textContent = "Spectacular! You have mastered 100% of your deck! 🎉";
+      } else if (masteryPercent >= 75) {
+        masterySummary.textContent = "Excellent work! You are close to full mastery.";
+      } else if (masteryPercent >= 40) {
+        masterySummary.textContent = "Steady progress. Keep studying to lock in details.";
+      } else {
+        masterySummary.textContent = "Just getting started? Open Study Deck to begin learning.";
+      }
+
+      // 3. Set Streak details
+      document.getElementById('streak-num').textContent = `${stats.streakDays || 0} Days`;
+      const lastSessionMeta = document.getElementById('last-session-meta');
+      if (stats.lastSessionDate) {
+        const d = new Date(stats.lastSessionDate);
+        lastSessionMeta.textContent = `Last studied on: ${d.toLocaleDateString()} at ${d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+      } else {
+        lastSessionMeta.textContent = "No study sessions recorded yet.";
+      }
+
+      // 4. Render recently added cards (last 3 cards created)
+      const recentContainer = document.getElementById('recent-cards-list');
+      recentContainer.innerHTML = '';
+      
+      // Sort by createdAt descending, take top 3
+      const sortedCards = [...cards].sort((a, b) => {
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      }).slice(0, 3);
+
+      if (sortedCards.length === 0) {
+        recentContainer.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 20px 0;">
+            No cards found.
+          </div>`;
+        return;
+      }
+
+      sortedCards.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'activity-item';
+        
+        let stateTag = '<span class="activity-tag tag-new">New</span>';
+        if (c.isLearned) {
+          stateTag = '<span class="activity-tag tag-learned">Learned</span>';
+        } else if (c.isDifficult) {
+          stateTag = '<span class="activity-tag tag-difficult">Difficult</span>';
+        }
+
+        item.innerHTML = `
+          <div class="activity-meta">
+            <span class="activity-title" title="${escapeHtml(c.question)}">${escapeHtml(truncateString(c.question, 40))}</span>
+            <span class="activity-cat">🏷️ ${escapeHtml(c.category)}</span>
+          </div>
+          ${stateTag}
+        `;
+        recentContainer.appendChild(item);
+      });
+    }
+
+    // Helper functions
+    function truncateString(str, num) {
+      if (str.length <= num) return str;
+      return str.slice(0, num) + '...';
+    }
+
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
