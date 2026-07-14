@@ -31,7 +31,7 @@ This project is tailored specifically as a high-fidelity academic mini-project f
 - **Programming Logic**: Vanilla JavaScript (ES6 Modules, LocalStorage persistence, DOM API)
 - **Deployment**: Vercel (Configured with `vercel.json` for clean URLs)
 
-No external libraries (like React, Tailwind, Chart.js, or Bootstrap) are used, ensuring the code is fully transparent, easy to explain during interviews, and has a 100% lighthouse performance score.
+
 
 ---
 
